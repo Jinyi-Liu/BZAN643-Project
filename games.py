@@ -66,6 +66,6 @@ df_reddit_new['similarity'] = [sim[0] for sim in base_similarity]
 df_reddit_new['index'] = [sim[1] for sim in base_similarity]
 # Join by the index of df_reddit_new and df.index
 df_test = df_reddit_new.join(df, on='index')
-df_test.to_csv('Recommendation/reddit_time/games_tbp.csv')
+df_test.to_csv('./data/games_tbp.csv')
 
 df_test = pd.read_csv('./data/games_tbp.csv', index_col=0)

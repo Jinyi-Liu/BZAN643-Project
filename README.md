@@ -2,11 +2,11 @@
 # ===============
 #
 
-1. Efficiency between the two platforms: r/GameSwap and r/GameSale. Is exchanging game more efficient?
+1. Efficiency between the two platforms: r/GameSwap and r/GameSale. Is exchanging games more efficient?
 2. Since we have Oct 2013-Sep 2015 game exchange data, what are the patterns of the game exchange? 
    Do people want to exchange the same type of game or want to try something different?
 3. When it comes to game exchange, do people prefer to exchange the game with someone who has 
-   exchanged before or someone who has not exchanged before? What's the difference between game sale and game exchange?
+   exchanged before or someone who has not exchanged before? What's the difference between game sales and game exchange?
 
 
 
@@ -26,6 +26,9 @@ See 03_Efficiency.ipynb.
 
 ### 3.2 Game Exchange Patterns
 See 03_Exchanging_Patterns.ipynb.
+
+### 3.3 Reciprocal Relationship between Bartering and Selling
+See 03_Reciprocal_Analysis.ipynb.
 
 
 # Future Work
