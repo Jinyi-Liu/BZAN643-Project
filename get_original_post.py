@@ -3,8 +3,11 @@ import requests
 from time import sleep
 import pickle
 import os
+# Get current directory
+# os.getcwd()
 
-data = pd.read_pickle("./data/df.pickle")
+with open('data/transaction_history_all.pickle', 'rb') as f:
+    data = pd.read_pickle(f)
 
 # data.head()
 # Get url from body starting with 'www.reddit.com' or 'www.reddit.com'
@@ -31,7 +34,6 @@ def get_json(index, url):
         return index, None
     sleep(0.05)
     return index, json_raw.json()
-
 
 
 # Get the json from url, and save it in a dictionary, key is the index column
@@ -75,9 +77,11 @@ data['created_utc_original'] = data.index.map(lambda x: get_created_utc(original
 data['created_utc_original'] = pd.to_datetime(data['created_utc_original'], unit='s')
 
 # Save the dataframe
-# data.to_pickle("./data/df_pre2019_original.pickle")
-with open('./data/df_pre2019_original.pickle', 'rb') as handle:
-    data = pickle.load(handle)
+if not os.path.exists('./data/df_pre2019_original.pickle'):
+    data.to_pickle("./data/df_pre2019_original.pickle")
+else:
+    with open('./data/df_pre2019_original.pickle', 'rb') as handle:
+        data = pickle.load(handle)
 
 data['confirmed_time'] = data['created_utc'] - data['created_utc_original']
 # Delete the rows with confirmed_time < 0. Outliers. Two rows.
