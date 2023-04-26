@@ -5,7 +5,6 @@ import pickle
 import pandas as pd
 import numpy as np
 
-df_total = pd.read_csv('./data/games_tbp.csv', index_col=0)
 
 from igdb.wrapper import IGDBWrapper
 post_url = "https://id.twitch.tv/oauth2/token?client_id=4njc2nod9cdh7wgc575ymsij8x7pli&client_secret=2g238v7i8bk5rrch8wn3g3eg45mcgq&grant_type=client_credentials"
@@ -39,7 +38,7 @@ while True:
 def get_release_dates(platform_id):
     byte_array = wrapper.api_request(
         'platform_version_release_dates',
-        'fields * ; where id=%d;'%platform_id
+        'fields * ; where id=%d;' % platform_id
     )
     return json.loads(byte_array)[0]
 get_release_dates(217)
@@ -63,15 +62,16 @@ for platform in platforms:
 
 
 # Get the id 282 of platform
-[platform for platform in platforms if platform['id']==164]
+print([platform for platform in platforms if platform['id']==164])
 
 # Save the platforms
-with open('Recommendation/reddit_time/platforms.pkl', 'wb') as f:
+with open('./data/platforms.pkl', 'wb') as f:
     pickle.dump(platforms, f)
 
 # Load the platforms
-with open('Recommendation/reddit_time/platforms.pkl', 'rb') as f:
+with open('./data/platforms.pkl', 'rb') as f:
     platforms = pickle.load(f)
+
 # To dateframe
 df = pd.DataFrame(platforms)
 # Transform release_dates to datetime
