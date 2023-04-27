@@ -64,7 +64,7 @@ def main():
 
     with concurrent.futures.ProcessPoolExecutor(max_workers=20) as executor:
         futures = []
-        for key, value_list in list(transformed_history.items())[8700:]:
+        for key, value_list in list(transformed_history.items()):
             i += 1
             future = executor.submit(process_value, key, value_list, i, redirect_dict, error_dict)
             futures.append((key, future))
