@@ -49,13 +49,13 @@ def get_most_similar(_df_reddit, _df, column):
 with Pool(20) as p:
     base_similarity = p.map(partial(get_most_similar, _df=df, column='name'), df_reddit['reddit_name'])
 # Save the base_similarity
-with open('Recommendation/reddit_time/base_similarity.pkl','wb') as f:
+with open('./data/base_similarity.pkl','wb') as f:
     pickle.dump(base_similarity, f)
 
 
 # Join the similarity with the df_reddit
-df_reddit['similarity'] = [sim[0] for sim in similarity]
-df_reddit['index'] = [sim[1] for sim in similarity]
+df_reddit['similarity'] = [sim[0] for sim in base_similarity]
+df_reddit['index'] = [sim[1] for sim in base_similarity]
 
 # Join the df_reddit with the df by the index
 df_test = df_reddit.join(df, on='index')
