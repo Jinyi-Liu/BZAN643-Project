@@ -83,19 +83,12 @@ if not os.path.exists('./data/gameswap_wayback.pickle'):
            60100,60300
           ]
     date_members = list(zip(date, max_members))
-    # # Save the date_members using pickle
-    # with open('./data/date_members.pickle', 'wb') as f:
-    #     pickle.dump(date_members, f)
-
-
     # date_members to dict
     date_members = dict(date_members)
-    for dm, num in zip(b, a):
-        date_members[dm[0]] = num
-    date_members.pop('20160301')
+    date_members.pop('20160301') # None in this date.
 
     # Save date_members to pickle
-    with open('./data/date_members_dict_processed.pickle', 'wb') as f:
+    with open('./data/gameswap_member.pickle', 'wb') as f:
         pickle.dump(date_members, f)
 else:
     pass
