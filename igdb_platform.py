@@ -76,16 +76,17 @@ else:
     with open('./data/version.pickle', 'rb') as handle:
         version_dict = pickle.load(handle)
 
-# Choose the platform with category 1 or 5
-console_dict = {}
-for platform in platforms:
-    try:
-        if platform['category'] in [1,5]:
-            console_dict[platform['name']] = version_dict[platform['name']]
-    except:
-        pass
+
 
 if not os.path.exists('./data/console_date.pickle'):
+    # Choose the platform with category 1 or 5
+    console_dict = {}
+    for platform in platforms:
+        try:
+            if platform['category'] in [1,5]:
+                console_dict[platform['name']] = version_dict[platform['name']]
+        except:
+            pass
     console_date_dict = {}
     for console_name, console_versions in console_dict.items():
         print(console_name)
@@ -112,4 +113,17 @@ df_console_date = df_console_date[df_console_date['date'] > '2009-01-01']
 # Save the dataframe
 df_console_date.to_csv('./data/console_date.csv')
 
-df_platform = pd.DataFrame.from_dict(platforms)
+if not os.path.exists("./data/genres_igdb.pickle"):
+    genres_name = []
+
+    byte_array = wrapper.api_request(
+            'genres',
+                    'fields *; limit 500;' 
+                )
+    time.sleep(0.25)
+    genres_get = json.loads(byte_array)
+    if genres_get:
+        genres_name += genres_get
+
+    df_genres_name = pd.DataFrame(genres_name)
+    df_genres_name.to_pickle('./data/genres_igdb.pickle')
