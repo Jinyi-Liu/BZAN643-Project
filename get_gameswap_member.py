@@ -6,8 +6,8 @@ from time import sleep
 from bs4 import BeautifulSoup as bs
 
 
-if not os.path.exists('./data/gameswap_wayback.pickle'):
-    if not os.path.exists('./data/archive_url_list_swap.pickle'):
+if not os.path.exists('./data/gameswap_member.pkl'):
+    if not os.path.exists('./data/archive_url_list_swap.pkl'):
         base_url = "http://archive.org/wayback/available?url=https://www.reddit.com/r/gameswap?timestamp="
         # Get a list month by month from 2009 to 2023 with the format of YYYYMMDD
         month_list = [str(year) + str(month).zfill(2) + '01' for year in range(2009, 2024) for month in range(1, 13)]
@@ -24,13 +24,13 @@ if not os.path.exists('./data/gameswap_wayback.pickle'):
         # Get the unique url in archive_url_list
         archive_url_list = list(set(archive_url_list))
         # Save the archive_url_list using pickle
-        with open('./data/archive_url_list_swap.pickle', 'wb') as f:
+        with open('./data/archive_url_list_swap.pkl', 'wb') as f:
             pickle.dump(archive_url_list, f)
     else:
-        with open('./data/archive_url_list_swap.pickle', 'rb') as f:
+        with open('./data/archive_url_list_swap.pkl', 'rb') as f:
             archive_url_list = pickle.load(f)
 
-    if not os.path.exists('./data/archive_html_list_swap.pickle'):
+    if not os.path.exists('./data/archive_html_list_swap.pkl'):
         # Get the html from archive_url_list
         archive_html_list = []
         for archive_url in archive_url_list:
@@ -38,10 +38,10 @@ if not os.path.exists('./data/gameswap_wayback.pickle'):
             archive_html_list.append(requests.get(archive_url).text)
             sleep(0.2)
         # Save the archive_html_list using pickle
-        with open('./data/archive_html_list_swap.pickle', 'wb') as f:
+        with open('./data/archive_html_list_swap.pkl', 'wb') as f:
             pickle.dump(archive_html_list, f)
     else:
-        with open('./data/archive_html_list_swap.pickle', 'rb') as f:
+        with open('./data/archive_html_list_swap.pkl', 'rb') as f:
             archive_html_list = pickle.load(f)
 
     # Sort the archive_html_list by the date
@@ -71,7 +71,7 @@ if not os.path.exists('./data/gameswap_wayback.pickle'):
            17047,17313,17587,17624,17076,
            17261,None,17567,17659,18001,
            18220,19282,19299,19515,19768,
-           24803,25113,25863,25572,29167,
+           24803,25113,25863,27572,29167,
            29667,30701,30918,32071,33352,
            34374,35842,36580,37340,38396,
            39490,40222,44700,45200,46300,
@@ -88,7 +88,7 @@ if not os.path.exists('./data/gameswap_wayback.pickle'):
     date_members.pop('20160301') # None in this date.
 
     # Save date_members to pickle
-    with open('./data/gameswap_member.pickle', 'wb') as f:
+    with open('./data/gameswap_member.pkl', 'wb') as f:
         pickle.dump(date_members, f)
 else:
     pass
